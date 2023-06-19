@@ -39,7 +39,6 @@ enum GameState {
   NONE
 };
 
-
 class State{
   public:
     //You may want to add more property for a state
@@ -59,5 +58,6 @@ class State{
     std::string encode_output();
     std::string encode_state();
 };
+
 
 #endif

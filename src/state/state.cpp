@@ -5,16 +5,31 @@
 #include "./state.hpp"
 #include "../config.hpp"
 
+//#define BOARD_H 6
+//#define BOARD_W 5
 
 /**
  * @brief evaluate the state
  * 
  * @return int 
  */
+static const int material_table[7] = {0, 2, 6, 7, 8, 20, 100};
+
 int State::evaluate(){
-  // [TODO] design your own evaluation function
-  return 0;
+  int v=0, piece=0;
+  for(size_t i=0; i<BOARD_H; i++){
+    for(size_t j=0; j<BOARD_W; j++){
+      if((piece=this->board.board[player][i][j])){
+        v += material_table[piece];
+      }
+      if((piece=this->board.board[1-player][i][j])){
+        v -= material_table[piece];
+      }
+    }
+  }
+  return v;
 }
+
 
 
 /**
