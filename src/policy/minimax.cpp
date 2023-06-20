@@ -12,26 +12,25 @@
  * @return Move 
  */
 
-Move minimax( State s, int depth );
-int max(State s, int depth, int a, int b);
-int min(State s, int depth, int a, int b);
+Move minimax1( State s, int depth );
+int max1(State s, int depth);
+int min1(State s, int depth);
 
-Move Minimax::get_move(State *state, int depth){
+Move minimax::get_move(State *state, int depth){
   if(!state->legal_actions.size())
     state->get_legal_actions();
   
   auto actions = state->legal_actions;
-  return minimax(*state, depth);
+  return minimax1(*state, depth);
 }
 
-Move minimax( State s, int depth ){    
+Move minimax1( State s, int depth ){    
     State* tmp;
     int max=-2000;
     Move m;
-    int a=-2000, b=2000;
     for(auto it : s.legal_actions ){
         tmp = s.next_state(it);
-        int v= min(*tmp, depth-1, a, b);
+        int v= min1(*tmp, depth-1);
         if(v > max){
             max = v;
             m = it;
@@ -40,38 +39,32 @@ Move minimax( State s, int depth ){
     return m;    
 }
 
-int max(State s, int depth, int a, int b){
+int max1(State s, int depth){
     if(depth==0) return s.evaluate();
     s.get_legal_actions();
     State* tmp;
     int max=-2000, v=0;
     for(auto it : s.legal_actions ){
         tmp = s.next_state(it);
-        v= min(*tmp, depth-1, a, b);
+        v= min1(*tmp, depth-1);
         if(max < v)
             max=v;
-        if(a < max)
-            a=max;    
         delete tmp;
-        if(a>=b) break;
     }   
     return max;
 }
 
-int min(State s, int depth, int a, int b){
-    if(depth==0) return s.evaluate();
+int min1(State s, int depth){
+    if(depth==0) return s.evaluate() * (-1);
     s.get_legal_actions();
     State* tmp;
     int min=2000, v=0;
     for(auto it : s.legal_actions ){
         tmp = s.next_state(it);
-        v= max(*tmp, depth-1, a, b);
+        v= max1(*tmp, depth-1);
         if(min > v)
             min=v;
-        if(b > min)
-            b=min;
         delete tmp;
-        if(b <= a) break;
     }   
     return min;
 }

@@ -31,8 +31,6 @@ int State::evaluate(){
       }
     }
   }
-
-
   return v;
 }
 
