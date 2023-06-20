@@ -13,7 +13,7 @@
  * 
  * @return int 
  */
-static const int material_table[7] = {0, 2, 6, 7, 8, 20, 100};
+static const int material_table[7] = {0, 3, 7, 8, 9, 21, 101};
 
 int State::evaluate(){
   int v=0, piece=0;
@@ -21,12 +21,18 @@ int State::evaluate(){
     for(size_t j=0; j<BOARD_W; j++){
       if((piece=this->board.board[player][i][j])){
         v += material_table[piece];
+        if(i>=3 && i<=4 && j>=1 && j<=3)
+          v+=1;
       }
       if((piece=this->board.board[1-player][i][j])){
         v -= material_table[piece];
+        if(i>=3 && i<=4 && j>=1 && j<=3)
+          v-=1;
       }
     }
   }
+
+
   return v;
 }
 

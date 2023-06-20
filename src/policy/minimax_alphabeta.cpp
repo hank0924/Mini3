@@ -59,7 +59,7 @@ int max(State s, int depth, int a, int b){
 }
 
 int min(State s, int depth, int a, int b){
-    if(depth==0) return s.evaluate();
+    if(depth==0) return s.evaluate() * (-1);
     s.get_legal_actions();
     State* tmp;
     int min=2000, v=0;
