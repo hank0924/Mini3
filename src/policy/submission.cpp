@@ -1,7 +1,7 @@
 #include <cstdlib>
 
 #include "../state/state.hpp"
-#include "./minimax_alphabeta.hpp"
+#include "./submission.hpp"
 
 
 /*
